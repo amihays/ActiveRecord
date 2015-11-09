@@ -1,5 +1,6 @@
 require_relative 'db_connection'
 require_relative '01_sql_object'
+require_relative 'bonus_relation'
 
 module Searchable
   def where(params)
@@ -14,7 +15,8 @@ module Searchable
       WHERE
         #{where_line}
     SQL
-    results.map{ |result| self.new(result) }
+    objects = results.map{ |result| self.new(result) }
+    Relation.new(objects)
   end
 end
 
